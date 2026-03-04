@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: glashaty
+      changes:
+        - createTable:
+            tableName: approval_registry
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: document_id
+                  type: BIGINT
+                  constraints:
+                    unique: true   # для одного документа, одна запись в реестре
+                    nullable: false
+              - column:
+                  name: approved_by
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: approved_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_registry_document
+            baseTableName: approval_registry
+            baseColumnNames: document_id
+            referencedTableName: documents
+            referencedColumnNames: id
+            onDelete: CASCADE

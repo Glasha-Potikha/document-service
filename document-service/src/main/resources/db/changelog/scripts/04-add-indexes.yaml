@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: glashaty
+      comment: Добавление индексов для оптимизации поиска
+      changes:
+      # Индекс для поиска по статусу
+        - createIndex:
+            indexName: idx_documents_status
+            tableName: documents
+            columns:
+              - column:
+                  name: status
+
+        # Индекс для связи с историей
+        - createIndex:
+            indexName: idx_history_document_id
+            tableName: document_status_history
+            columns:
+              - column:
+                  name: document_id
+
+        # Индекс для связи с реестром
+        - createIndex:
+            indexName: idx_registry_document_id
+            tableName: approval_registry
+            columns:
+              - column:
+                  name: document_id
+
+        # Составной индекс для workers
+        - createIndex:
+            indexName: idx_documents_status_id
+            tableName: documents
+            columns:
+              - column:
+                  name: status
+              - column:
+                  name: id
+
+        # Составной индекс для поиска (статус + дата)
+        - createIndex:
+            indexName: idx_documents_status_created
+            tableName: documents
+            columns:
+              - column:
+                  name: status
+              - column:
+                  name: created_at

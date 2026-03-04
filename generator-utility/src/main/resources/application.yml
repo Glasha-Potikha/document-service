@@ -1,0 +1,9 @@
+
+generator:
+  count: 10
+  batch-size: 5
+  delay-ms: 100
+
+spring:
+  main:
+    web-application-type: none

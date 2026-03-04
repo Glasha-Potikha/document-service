@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: document-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/documentdb
+    username: documentuser
+    password: documentpass
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.yaml
+
+worker:
+  batch-size: 100
+  submit:
+    enabled: true
+    interval: 30000  #30с
+  approve:
+    enabled: true
+    interval: 45000  #45сек
